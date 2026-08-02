@@ -10,6 +10,8 @@ import (
 	"github.com/Joseeptessele/ardanlabs-service/foundation/logger"
 )
 
+var build = "develop" // build version set at compile-time
+
 func main() {
 	var log *logger.Logger
 

@@ -30,6 +30,13 @@ spec:
         - name: sales-api
           containerPort: 3000
 
+        
+        env:
+        - name: GOMAXPROCS
+          valueFrom:
+            resourceFieldRef:
+              resource: limits.cpu
+
 ---
 
 apiVersion: v1

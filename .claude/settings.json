@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go env *)",
+      "Bash(grep -n \"go/bin\\\\|GOPATH\" ~/.zshrc)",
+      "Read(//Users/josetessele/**)"
+    ]
+  }
+}

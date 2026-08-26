@@ -6,4 +6,10 @@ metadata:
 
 spec:
   type: ClusterIP
-
+  ports:
+  - name: sales-api
+    port: 3000
+    targetPort: sales-api
+  - name: sales-debug
+    port: 3010
+    targetPort: sales-debug

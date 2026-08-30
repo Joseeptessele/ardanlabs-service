@@ -2,18 +2,15 @@ package mux
 
 import (
 	"net/http"
+
+	"github.com/Joseeptessele/ardanlabs-service/apis/services/sales/route/sys/checkapi"
 )
 
 // WebAPIAuth constructs a http.Handler with all application routes bound.
 func WebAPI() http.Handler {
 	mux := http.NewServeMux()
 
-	h := func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte("Hello, World!"))
-	}
-
-	mux.HandleFunc("GET /test", h)
+	checkapi.Routes(mux)
 
 	return mux
 }

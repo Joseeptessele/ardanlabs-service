@@ -1,0 +1,51 @@
+package web
+
+import (
+	"context"
+	"fmt"
+	"net/http"
+	"os"
+)
+
+// A Handler is a type that handles a http request within our own little mini
+// framework.
+type Handler func(ctx context.Context, w http.ResponseWriter, r *http.Request) error
+
+// App is the entrypoint into our application and what configures our context
+// object for each of our http handlers. Feel free to add any configuration
+// data/logic on this App struct.
+type App struct {
+	*http.ServeMux
+	shutdown chan os.Signal
+}
+
+// Newapp creates an app value that handle a set of routes fo the application. It also takes a shutdown channel that can be used to signal the application to shutdown.
+func NewApp(shutdown chan os.Signal) *App {
+	return &App{
+		ServeMux: http.NewServeMux(),
+		shutdown: shutdown,
+	}
+}
+
+// HandleFunc sets a handler function for a given HTTP method and path pair
+// to the application server mux.
+func (a *App) HandleFunc(pattern string, handler Handler) {
+	// handler = wrapMiddleware(mw, handler)
+	// handler = wrapMiddleware(a.mw, handler)
+
+	h := func(w http.ResponseWriter, r *http.Request) {
+		// v := Values{
+		// 	TraceID: uuid.NewString(),
+		// 	Now:     time.Now().UTC(),
+		// }
+		// ctx := setValues(r.Context(), &v)
+
+		if err := handler(r.Context(), w, r); err != nil {
+			// a.log(ctx, "web", "ERROR", err)
+			fmt.Println(err)
+			return
+		}
+	}
+
+	a.ServeMux.HandleFunc(pattern, h)
+}

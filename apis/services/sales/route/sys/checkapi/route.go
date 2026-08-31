@@ -4,7 +4,8 @@ import (
 	"github.com/Joseeptessele/ardanlabs-service/foundation/web"
 )
 
-func Routes(mux *web.App) {
-	mux.HandleFunc("GET /liveness", liveness)
-	mux.HandleFunc("GET /readiness", readiness)
+func Routes(app *web.App) {
+	app.HandleFunc("GET /liveness", liveness)
+	app.HandleFunc("GET /readiness", readiness)
+	app.HandleFunc("GET /testerror", testError)
 }
